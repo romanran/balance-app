@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { type Balance, type Transaction } from '@/models/BalanceData'
 import { FetchFactory } from '@/services/middleware/FetchFactory'
+import { transformTransactions } from '@/services/helpers/balance'
 
 const Balance = new FetchFactory('http://api.net/')
 
@@ -22,6 +23,12 @@ export const useBalanceStore = defineStore('balance', {
             const response = await Balance.get<Transaction[]>()
             this.transactions = response
             this.loading = false
+            if (!Array.isArray(response)) {
+                return false
+            }
+            const balance = transformTransactions(this.transactions)
+            this.currentBalance = balance.currentBalance
+            this.monthlyBalance = balance.monthlyBalance
 
             return response
         }
