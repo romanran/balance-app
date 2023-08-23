@@ -6,7 +6,7 @@ const config = {
     monthsToGenerate: 12,
     dateMin: new Date(2022, 8, 23),
     dateMax: new Date(2023, 8, 23),
-    minBalance: -2000, maxBalance: 6000
+    minAmount: -2000, maxAmount: 6000
 }
 
 const transactions = [];
@@ -23,17 +23,22 @@ function getRandomDate(from, to) {
     );
 }
 
-function getTransaction(dateMin, dateMax, minBalance, maxBalance) {
-    return { date: getRandomDate(dateMin, dateMax), balance: getRandomFloat(minBalance, maxBalance) }
+function getTransaction(dateMin, dateMax, minAmount, maxAmount) {
+    return {
+        date: getRandomDate(dateMin, dateMax),
+        amount: getRandomFloat(minAmount, maxAmount)
+    }
 }
 
-function writeTransactionsfile() {
+function writeTransactionsfile(transactions) {
     fs.writeFileSync(`${__dirname}/src/data/transactions.json`, JSON.stringify(transactions))
 }
 
 for (let monthIndex = 0; monthIndex < config.monthsToGenerate; monthIndex++) {
-    transactions.push(getTransaction(config.dateMin, config.dateMax, config.minBalance, config.maxBalance));
+    transactions.push(getTransaction(config.dateMin, config.dateMax, config.minAmount, config.maxAmount))
 }
+transactions.sort((transaction1, transaction2) => {
+    return transaction1.date - transaction2.date
+})
 
-
-writeTransactionsfile()
+writeTransactionsfile(transactions)

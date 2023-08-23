@@ -1,11 +1,12 @@
+<script setup lang="ts">
+const props = defineProps({ balance: { type: Number, required: true } })
+</script>
+
 <template>
     <div>
-
+        {{ props.balance }}
     </div>
 </template>
 
-<script setup lang="ts">
 
-</script>
-
-<style scoped></style>
+<style ></style>

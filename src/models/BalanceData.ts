@@ -1,11 +1,14 @@
 export interface Transaction {
-    date: Date
+    date: string
     amount: number
 }
 
 export interface MonthBalance {
-    month: Date
-    amount: number
+    date: {
+        year: number
+        month: number
+    }
+    balance: number
 }
 
 export interface Balance {
