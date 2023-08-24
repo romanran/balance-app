@@ -17,7 +17,7 @@ fetchData()
 
 <template>
     <div class="balance-module">
-        <BaBalance v-if="currentBalance" :balance=currentBalance></BaBalance>
+        <BaBalance v-if="currentBalance" :balance="currentBalance"></BaBalance>
         <BaBalanceMonthly :months="monthlyBalance"></BaBalanceMonthly>
     </div>
     <div v-if="loading">loading...</div>
