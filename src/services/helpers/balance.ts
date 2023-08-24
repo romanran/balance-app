@@ -1,5 +1,6 @@
 import type { Balance, MonthBalance, Transaction } from '@/models/BalanceData'
 
+/* Transform transactions to monthly balance */
 export function transformTransactions(transactions: Transaction[]): Balance {
     let currentBalance = 0
     let monthIterator = -1

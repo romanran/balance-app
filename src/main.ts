@@ -8,7 +8,6 @@ import { formatCurrency } from './common/directives/format'
 const app = createApp(App)
 
 app.use(createPinia())
-
 app.mount('#app')
 
 app.directive('balance', formatCurrency)
