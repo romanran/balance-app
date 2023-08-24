@@ -3,9 +3,9 @@ import BalanceModule from './modules/Balance/BalanceModule.vue';
 </script>
 
 <template>
-  <q-layout>
+  <q-layout class="ba-app">
     <q-page-container>
-      <q-page padding>
+      <q-page padding class="ba-app__page">
         <div class="row justify-center">
           <div class="col-8">
             <BalanceModule></BalanceModule>
@@ -16,4 +16,9 @@ import BalanceModule from './modules/Balance/BalanceModule.vue';
   </q-layout>
 </template>
 
-<style ></style>
+<style lang="scss">
+.ba-app__page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+</style>
