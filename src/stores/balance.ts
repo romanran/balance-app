@@ -3,7 +3,7 @@ import { type Balance, type Transaction } from '@/models/BalanceData'
 import { FetchFactory } from '@/services/middleware/FetchFactory'
 import { transformTransactions } from '@/services/helpers/balance'
 
-const Balance = new FetchFactory('http://api.net/')
+const Balance = new FetchFactory('http://someapi.net/transactions')
 
 export interface BalanceState extends Balance {
     loading: Boolean
