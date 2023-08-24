@@ -25,7 +25,7 @@ function formatDate(month: number) {
 
 </script>
 <template>
-    <q-table :rows="props.months" :columns="columns" :loading="loading.valueOf">
+    <q-table :rows="props.months" :columns="columns" :loading="loading.valueOf()">
         <template v-slot:body-cell-date="props">
             <q-td>
                 {{ formatDate(props.row.date.month) }} {{ props.row.date.year }}
