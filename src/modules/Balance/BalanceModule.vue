@@ -25,7 +25,6 @@ fetchData()
             <BaBalanceMonthly :months="monthlyBalance"></BaBalanceMonthly>
         </q-card-section>
     </q-card>
-    <div v-if="loading">loading...</div>
 </template>
 
 <style lang="scss">

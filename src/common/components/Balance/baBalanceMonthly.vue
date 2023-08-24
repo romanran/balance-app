@@ -2,11 +2,15 @@
 <script setup lang="ts">
 import type { MonthBalance } from '@/models/BalanceData';
 import { formatBalance } from '@/services/helpers/balance';
+import { useBalanceStore } from '@/stores/balance';
+import { storeToRefs } from 'pinia';
 import type { QTableColumn } from 'quasar';
 
 interface Props {
     months: MonthBalance[]
 }
+const balanceStore = useBalanceStore()
+const { loading } = storeToRefs(balanceStore)
 
 const props = defineProps<Props>()
 
@@ -21,7 +25,7 @@ function formatDate(month: number) {
 
 </script>
 <template>
-    <q-table :rows="props.months" :columns="columns">
+    <q-table :rows="props.months" :columns="columns" :loading="loading.valueOf">
         <template v-slot:body-cell-date="props">
             <q-td>
                 {{ formatDate(props.row.date.month) }} {{ props.row.date.year }}
