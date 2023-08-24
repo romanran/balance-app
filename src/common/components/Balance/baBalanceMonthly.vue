@@ -37,9 +37,6 @@ function formatDate(month: number) {
             </q-td>
         </template>
     </q-table>
-    <!-- <div v-for="month in props.months" :key="`${month.date.year}${month.date.month}`">
-        <BaBalanceMonthlyRow :month=month></BaBalanceMonthlyRow>
-    </div> -->
 </template>
 
 <style scoped></style>
