@@ -16,10 +16,15 @@ fetchData()
 </script>
 
 <template>
-    <div class="balance-module">
-        <BaBalance v-if="currentBalance" :balance="currentBalance"></BaBalance>
-        <BaBalanceMonthly :months="monthlyBalance"></BaBalanceMonthly>
-    </div>
+    <q-card class="balance-module" flat bordered>
+        <q-card-section>
+            <BaBalance v-if="currentBalance" :balance="currentBalance"></BaBalance>
+        </q-card-section>
+        <q-separator inset />
+        <q-card-section>
+            <BaBalanceMonthly :months="monthlyBalance"></BaBalanceMonthly>
+        </q-card-section>
+    </q-card>
     <div v-if="loading">loading...</div>
 </template>
 
