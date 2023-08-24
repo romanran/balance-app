@@ -4,7 +4,7 @@ const props = defineProps({ balance: { type: Number, required: true } })
 
 <template>
     <div>
-        {{ props.balance }}
+        <span>Total balance:</span> <span v-balance="props.balance"></span>
     </div>
 </template>
 
