@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import type { MonthBalance } from '@/models/BalanceData';
 import type { QTableColumn } from 'quasar';
+import { ref } from 'vue'
 
 interface Props {
     months: MonthBalance[],
@@ -10,8 +11,17 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const pagination = ref({
+    rowsPerPage: 25,
+    sortBy: 'date',
+    descending: true,
+})
+function dateSort(a: MonthBalance['date'], b: MonthBalance['date']) {
+    return a.year + a.month - b.year + b.month
+}
+
 const columns: QTableColumn[] = [
-    { name: 'date', field: 'date', label: 'Date', sortOrder: "da", align: 'left' },
+    { name: 'date', field: 'date', label: 'Date', sort: dateSort, align: 'left' },
     { name: 'balance', field: 'balance', label: 'Balance', align: 'right' },
 ]
 
@@ -21,7 +31,7 @@ function formatDate(month: number) {
 
 </script>
 <template>
-    <q-table :rows="props.months" :columns="columns" :loading="loading">
+    <q-table :rows="props.months" :columns="columns" :loading="loading" v-model:pagination="pagination">
         <template v-slot:body-cell-date="props">
             <q-td>
                 {{ formatDate(props.row.date.month) }} {{ props.row.date.year }}

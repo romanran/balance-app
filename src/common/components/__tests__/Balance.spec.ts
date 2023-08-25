@@ -1,12 +1,13 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 
-import { mount } from '@vue/test-utils'
+import { DOMWrapper, mount } from '@vue/test-utils'
 import BaBalance from '@/common/components/Balance/baBalance.vue'
 import BaBalanceMonthly from '@/common/components/Balance/baBalanceMonthly.vue'
 import type { Balance } from '@/models/BalanceData'
 import { formatBalance } from '@/services/helpers/balance'
 import { formatCurrency } from '@/common/directives/format'
-import Quasar from 'quasar'
+import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest'
+installQuasarPlugin()
 
 describe('Balance components', () => {
     const balance: Balance = {
@@ -31,8 +32,7 @@ describe('Balance components', () => {
     const global = {
         directives: {
             balance: formatCurrency
-        },
-        plugins: [Quasar]
+        }
     }
 
     it('should show correct current total balance', () => {
@@ -43,7 +43,7 @@ describe('Balance components', () => {
 
         expect(BalanceWrapper.text()).toContain(formatBalance(30.31))
     })
-    it('should show correct monthly balance', () => {
+    it('should show correct monthly balance in right order', () => {
         const BalanceMonthlyWrapper = mount(BaBalanceMonthly, {
             props: {
                 months: balance.monthlyBalance,
@@ -52,11 +52,10 @@ describe('Balance components', () => {
             global
         })
 
-        const rows = BalanceMonthlyWrapper.find('[data-test="monthly-balance"]').find('tr')
-
-        expect(rows[1].text()).toContain('January')
-        expect(rows[1].text()).toContain(formatBalance(balance.monthlyBalance[0].balance))
-        expect(rows[2].text()).toContain('February')
+        const rows: DOMWrapper<HTMLTableRowElement>[] = BalanceMonthlyWrapper.findAll('tr')
+        expect(rows[1].text()).toContain('February')
         expect(rows[1].text()).toContain(formatBalance(balance.monthlyBalance[1].balance))
+        expect(rows[2].text()).toContain('January')
+        expect(rows[2].text()).toContain(formatBalance(balance.monthlyBalance[0].balance))
     })
 })
