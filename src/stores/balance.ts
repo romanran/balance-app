@@ -6,7 +6,7 @@ import { transformTransactions } from '@/services/helpers/balance'
 const Balance = new FetchFactory('http://someapi.net/transactions')
 
 export interface BalanceState extends Balance {
-    loading: Boolean
+    loading: boolean
     transactions: Transaction[]
 }
 
